@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mi Cliente — Pedidos, cobranza y reparto para tu distribuidora</title>
+<meta name="description" content="Mi Cliente reemplaza el WhatsApp, las llamadas y el Excel de tu distribuidora por un solo panel: catálogo online, cobranza clara y reparto con respaldo." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><path d=%22M50,35 A25,25 0 0,0 50,85 C34,79 34,67 50,60 C66,53 66,41 50,35 Z%22 fill=%22%230D1B2A%22/><path d=%22M50,35 A25,25 0 0,1 50,85 C34,79 34,67 50,60 C66,53 66,41 50,35 Z%22 fill=%22%2316A34A%22/><circle cx=%2238%22 cy=%2224%22 r=%2210%22 fill=%22%230D1B2A%22/><circle cx=%2262%22 cy=%2224%22 r=%2210%22 fill=%22%2316A34A%22/></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0d1b2a;
+    --ink-soft: #5b6b7c;
+    --ink-faint: #8b98a6;
+    --paper: #f7f8f7;
+    --card: #ffffff;
+    --line: #e5e8e6;
+    --brand-navy: #0d1b2a;
+    --brand-green: #16a34a;
+    --brand-green-soft: #e8f7ee;
+    --radius-card: 14px;
+    --radius-btn: 10px;
+    --shadow-sm: 0 1px 2px rgba(20, 20, 15, 0.05);
+    --shadow-md: 0 1px 2px rgba(20, 20, 15, 0.04), 0 8px 24px rgba(20, 20, 15, 0.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  main { overflow-x: hidden; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  .wrap-narrow { max-width: 760px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 24px; max-width: 1080px; margin: 0 auto;
+  }
+  .logo { display: inline-flex; align-items: center; gap: 8px; }
+  .logo span { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+  .logo .green { color: var(--brand-green); }
+  .btn-ingresar {
+    font-size: 13px; font-weight: 600; color: var(--ink-soft); text-decoration: none;
+    padding: 8px 14px; border-radius: var(--radius-btn); border: 1px solid var(--line);
+  }
+  .hero { max-width: 760px; margin: 0 auto; padding: 48px 24px 40px; text-align: center; }
+  .eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.03em;
+    text-transform: uppercase; color: var(--brand-green); background: var(--brand-green-soft);
+    padding: 6px 14px; border-radius: 999px; margin-bottom: 20px;
+  }
+  h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 18px; text-wrap: balance; }
+  .hero p.lead { font-size: 17px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 32px; }
+  .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary, .btn-ghost {
+    font-size: 15px; padding: 13px 26px; border-radius: var(--radius-btn); font-weight: 600;
+    text-decoration: none; display: inline-block; cursor: pointer; border: none;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .btn-primary { background: var(--ink); color: white; box-shadow: 0 1px 2px rgba(20,20,15,0.08), var(--shadow-sm); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 2px 4px rgba(20,20,15,0.1), var(--shadow-md); }
+  .btn-primary.green { background: var(--brand-green); }
+  .btn-ghost { background: var(--card); color: var(--ink-soft); border: 1px solid var(--line); }
+  .btn-ghost:hover { border-color: var(--ink-faint); color: var(--ink); }
+  .card { border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--card); box-shadow: var(--shadow-sm); }
+  .problema { max-width: 900px; margin: 0 auto; padding: 20px 24px 56px; }
+  .problema .card { padding: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; }
+  .problema p { font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+  section.features { max-width: 1080px; margin: 0 auto; padding: 20px 24px 64px; }
+  .section-title { text-align: center; margin-bottom: 40px; }
+  .section-title h2 { font-size: clamp(24px, 4vw, 30px); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 10px; }
+  .section-title p { font-size: 15px; color: var(--ink-soft); }
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .feature-card { padding: 22px; }
+  .feature-icon {
+    width: 38px; height: 38px; border-radius: 11px; background: var(--brand-green-soft); color: var(--brand-green);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+  }
+  .feature-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .feature-card p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
+  section.pasos { max-width: 1080px; margin: 0 auto; padding: 20px 24px 64px; }
+  section.pasos h2 { font-size: clamp(24px, 4vw, 30px); font-weight: 700; letter-spacing: -0.01em; text-align: center; margin-bottom: 40px; }
+  .pasos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .pasos-grid .num { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: 700; color: var(--brand-green); margin-bottom: 10px; }
+  .pasos-grid h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .pasos-grid p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
+  section.rubros { max-width: 760px; margin: 0 auto; padding: 20px 24px 64px; text-align: center; }
+  section.rubros h2 { font-size: clamp(22px, 4vw, 26px); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px; }
+  section.rubros p { font-size: 15px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 20px; }
+  .pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 6px 13px; border-radius: 999px; background: #eef1ef; color: var(--ink-soft); }
+  section.faq { max-width: 760px; margin: 0 auto; padding: 20px 24px 64px; }
+  section.faq h2 { font-size: clamp(24px, 4vw, 30px); font-weight: 700; letter-spacing: -0.01em; text-align: center; margin-bottom: 28px; }
+  .faq-item { border-bottom: 1px solid var(--line); padding: 18px 2px; }
+  .faq-item summary { font-size: 15px; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: '+'; font-size: 20px; color: var(--ink-faint); font-weight: 400; flex-shrink: 0; }
+  .faq-item[open] summary::after { content: '−'; }
+  .faq-item p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; margin-top: 10px; }
+  section.cta-final { max-width: 760px; margin: 0 auto; padding: 20px 24px 72px; }
+  .cta-box { background: var(--ink); border-radius: var(--radius-card); padding: 44px 32px; text-align: center; }
+  .cta-box h2 { font-size: clamp(20px, 3.5vw, 25px); font-weight: 700; color: white; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .cta-box p { font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 26px; max-width: 440px; margin-left: auto; margin-right: auto; }
+  footer { max-width: 1080px; margin: 0 auto; padding: 24px; text-align: center; }
+  footer p { font-size: 12px; color: var(--ink-faint); margin-top: 10px; }
+</style>
+</head>
+<body>
+<main>
+
+  <header>
+    <span class="logo">
+      <svg width="28" height="28" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M50,35 A25,25 0 0,0 50,85 C34,79 34,67 50,60 C66,53 66,41 50,35 Z" fill="#0D1B2A"/>
+        <path d="M50,35 A25,25 0 0,1 50,85 C34,79 34,67 50,60 C66,53 66,41 50,35 Z" fill="#16A34A"/>
+        <circle cx="38" cy="24" r="10" fill="#0D1B2A"/>
+        <circle cx="62" cy="24" r="10" fill="#16A34A"/>
+      </svg>
+      <span>Mi <span class="green">Cliente</span></span>
+    </span>
+    <a class="btn-ingresar" href="https://mi-cliente.vercel.app/login">Ingresar</a>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">Para distribuidoras que hoy venden por WhatsApp y Excel</p>
+    <h1>Que tus clientes pidan solos.<br>Que tú sepas siempre quién te debe.</h1>
+    <p class="lead">
+      Mi Cliente es el sistema de pedidos, cobranza y reparto para distribuidoras chicas y medianas —
+      hielo, aguas, bebidas, abarrotes. Reemplaza el WhatsApp, las llamadas y la planilla de Excel por
+      un solo panel donde ves todo tu negocio.
+    </p>
+    <div class="cta-row">
+      <a class="btn-primary" href="mailto:igperezdiaz@gmail.com?subject=Quiero%20conocer%20Mi%20Cliente">Hablemos de tu negocio</a>
+      <a class="btn-ghost" href="#como-funciona">Ver cómo funciona</a>
+    </div>
+  </section>
+
+  <section class="problema">
+    <div class="card">
+      <p>"¿Cuánto te debía el minimarket de la esquina?" — y tienes que revisar 40 conversaciones de WhatsApp para saberlo.</p>
+      <p>Un cliente pide a las 10pm, otro llama mientras estás repartiendo, otro manda audio — y algún pedido siempre se pierde.</p>
+      <p>A fin de mes no sabes con certeza qué se vendió más, ni cuánto es lo que realmente te queda por cobrar.</p>
+    </div>
+  </section>
+
+  <section class="pasos" id="como-funciona">
+    <h2>Cómo funciona</h2>
+    <div class="pasos-grid">
+      <div><p class="num">01</p><h3>Subes tu catálogo</h3><p>Productos, precios, fotos y categorías. Toma minutos, no días.</p></div>
+      <div><p class="num">02</p><h3>Invitas a tus clientes</h3><p>Les mandas un link por WhatsApp. Ellos crean su cuenta solos.</p></div>
+      <div><p class="num">03</p><h3>Ellos piden, tú confirmas</h3><p>Ves cada pedido apenas llega y decides la fecha de entrega.</p></div>
+      <div><p class="num">04</p><h3>Repartes y cobras con respaldo</h3><p>Foto de entrega, control de pagos, todo queda registrado.</p></div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="section-title">
+      <h2>Todo lo que hoy haces a mano, en un solo lugar</h2>
+      <p>No es un cambio de sistema — es dejar de perseguir información.</p>
+    </div>
+    <div class="feature-grid">
+
+      <div class="card feature-card">
+        <div class="feature-icon">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8 12 4l8.5 4-8.5 4-8.5-4Z"/><path d="M3.5 8v9L12 21l8.5-4V8"/><path d="M12 12v9"/></svg>
+        </div>
+        <h3>Catálogo propio, pedidos solos</h3>
+        <p>Tus clientes ven tus productos, precios y promociones desde el celular, arman su pedido y lo confirman. Sin llamarte, sin escribirte por WhatsApp a las 11 de la noche.</p>
+      </div>
+
+      <div class="card feature-card">
+        <div class="feature-icon">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="16" height="10" rx="2"/><circle cx="11" cy="12" r="2.3"/><path d="M7 9.3v5.4M15 9.3v5.4" opacity="0.6"/></svg>
+        </div>
+        <h3>Sabes quién te debe y cuánto</h3>
+        <p>Cada pedido queda marcado como pagado o pendiente. Si le fías a un cliente, le pones días de crédito y la app te avisa sola cuando se le pasa el plazo.</p>
+      </div>
+
+      <div class="card feature-card">
+        <div class="feature-icon">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h10v9H3z"/><path d="M13 10h4l4 3v3h-8z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>
+        </div>
+        <h3>Reparto con respaldo</h3>
+        <p>Tu repartidor marca la entrega con una foto y el nombre de quien recibió. Si un cliente reclama que "nunca le llegó", tienes la prueba a un clic.</p>
+      </div>
+
+      <div class="card feature-card">
+        <div class="feature-icon">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M11 20V4M18 20v-7"/><path d="M3 20h18"/></svg>
+        </div>
+        <h3>Reportes sin pedirle nada a nadie</h3>
+        <p>Ventas por día, tus productos más vendidos, tus mejores clientes, cuánto llevas cobrado y cuánto falta — todo en el panel, y descargable en Excel.</p>
+      </div>
+
+      <div class="card feature-card">
+        <div class="feature-icon">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 4.5 1.5 6 2 6.5H4c.5-.5 2-2 2-6.5Z"/><path d="M9.5 18.5a2.5 2.5 0 0 0 5 0"/></svg>
+        </div>
+        <h3>Avisos automáticos</h3>
+        <p>Cuando un cliente pide, cuando confirmas, cuando el pedido sale a reparto — el sistema le manda el aviso por correo solo.</p>
+      </div>
+
+      <div class="card feature-card">
+        <div class="feature-icon">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 19 6.5v5c0 5-3 8-7 9-4-1-7-4-7-9v-5Z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3>Tu marca, no la nuestra</h3>
+        <p>Tus clientes ven tu logo y tus colores cuando entran a pedir — no los nuestros. Mi Cliente es la herramienta; tu negocio sigue siendo el tuyo.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="rubros">
+    <h2>Para distribuidoras como la tuya</h2>
+    <p>
+      Hielo, aguas, bebidas, abarrotes, insumos para negocios — si vendes al por mayor a otros locales
+      (restaurantes, minimarkets, botillerías, almacenes) y hoy lo haces por WhatsApp, llamadas o
+      Excel, Mi Cliente está pensado para ti.
+    </p>
+    <div class="pills">
+      <span class="pill">Hielo</span>
+      <span class="pill">Aguas</span>
+      <span class="pill">Bebidas</span>
+      <span class="pill">Abarrotes</span>
+      <span class="pill">Insumos</span>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2>Preguntas frecuentes</h2>
+
+    <details class="faq-item">
+      <summary>¿Necesito instalar algo?</summary>
+      <p>No. Mi Cliente funciona desde el navegador, tanto en el celular como en el computador — ni tú ni tus clientes necesitan descargar una aplicación.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>¿Mis clientes tienen que pagar por usarlo?</summary>
+      <p>No. Solo la distribuidora paga la suscripción. Para tus clientes, pedir a través de Mi Cliente es gratis.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>¿Qué pasa con mi marca? ¿Se ve el logo de Mi Cliente en vez del mío?</summary>
+      <p>Tus clientes ven tu logo y tu color cuando entran a pedir, no los nuestros. Mi Cliente es la herramienta que usas por dentro; tu negocio sigue siendo el que ven tus clientes.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Tengo pocos clientes todavía, ¿igual me sirve?</summary>
+      <p>Sí. No hay un mínimo de clientes ni de pedidos para empezar — funciona igual de bien con 5 clientes que con 500.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>¿Tengo que dejar de usar WhatsApp de un día para otro?</summary>
+      <p>No. Puedes ir migrando a tu ritmo — muchos dueños parten invitando a sus clientes más frecuentes primero y van sumando al resto con el tiempo.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>¿Cómo empiezo?</summary>
+      <p>Escríbenos con el botón de abajo. Conversamos sobre cómo trabaja hoy tu distribuidora y vemos juntos si Mi Cliente te sirve y cómo partir.</p>
+    </details>
+  </section>
+
+  <section class="cta-final">
+    <div class="cta-box">
+      <h2>Cuéntanos cómo trabajas hoy</h2>
+      <p>Sin compromiso. Vemos juntos si Mi Cliente te sirve para tu distribuidora y cómo partir.</p>
+      <a class="btn-primary green" href="mailto:igperezdiaz@gmail.com?subject=Quiero%20conocer%20Mi%20Cliente">Escríbenos</a>
+    </div>
+  </section>
+
+  <footer>
+    <svg width="20" height="20" viewBox="0 0 100 100" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:6px;">
+      <path d="M50,35 A25,25 0 0,0 50,85 C34,79 34,67 50,60 C66,53 66,41 50,35 Z" fill="#0D1B2A"/>
+      <path d="M50,35 A25,25 0 0,1 50,85 C34,79 34,67 50,60 C66,53 66,41 50,35 Z" fill="#16A34A"/>
+      <circle cx="38" cy="24" r="10" fill="#0D1B2A"/>
+      <circle cx="62" cy="24" r="10" fill="#16A34A"/>
+    </svg>
+    <span style="font-weight:700; font-size: 15px;">Mi Cliente</span>
+    <p>Digitalizamos la forma en que tu negocio vende.</p>
+  </footer>
+
+</main>
+</body>
+</html>
