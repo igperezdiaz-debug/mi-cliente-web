@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Mi Cliente — Pedidos, cobranza y reparto para tu distribuidora</title>
-<meta name="description" content="Mi Cliente reemplaza el WhatsApp, las llamadas y el Excel de tu distribuidora por un solo panel: catálogo online, cobranza clara y reparto con respaldo." />
+<title>Mi Cliente — Pedidos, cobranza y reparto bajo control total</title>
+<meta name="description" content="Mi Cliente centraliza pedidos, cobranza y reparto en un solo panel. Reemplaza las llamadas, el WhatsApp y las planillas por control real, de principio a fin." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><path d=%22M50,35 A25,25 0 0,0 50,85 C34,79 34,67 50,60 C66,53 66,41 50,35 Z%22 fill=%22%230D1B2A%22/><path d=%22M50,35 A25,25 0 0,1 50,85 C34,79 34,67 50,60 C66,53 66,41 50,35 Z%22 fill=%22%2316A34A%22/><circle cx=%2238%22 cy=%2224%22 r=%2210%22 fill=%22%230D1B2A%22/><circle cx=%2262%22 cy=%2224%22 r=%2210%22 fill=%22%2316A34A%22/></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   :root {
     --ink: #0d1b2a;
@@ -20,12 +20,16 @@
     --brand-navy: #0d1b2a;
     --brand-green: #16a34a;
     --brand-green-soft: #e8f7ee;
-    --radius-card: 14px;
+    --bad: #a5372f;
+    --bad-soft: #f7e6e4;
+    --radius-card: 16px;
     --radius-btn: 10px;
     --shadow-sm: 0 1px 2px rgba(20, 20, 15, 0.05);
-    --shadow-md: 0 1px 2px rgba(20, 20, 15, 0.04), 0 8px 24px rgba(20, 20, 15, 0.06);
+    --shadow-md: 0 1px 2px rgba(20,20,15,0.04), 0 8px 24px rgba(20,20,15,0.07);
+    --shadow-lg: 0 8px 16px rgba(13,27,42,0.10), 0 24px 60px rgba(13,27,42,0.14);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--paper);
@@ -34,79 +38,210 @@
   }
   a { color: inherit; }
   main { overflow-x: hidden; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
-  .wrap-narrow { max-width: 760px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  img, svg { max-width: 100%; }
+  .num { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+
   header {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 22px 24px; max-width: 1080px; margin: 0 auto;
+    padding: 22px 24px; max-width: 1160px; margin: 0 auto;
   }
   .logo { display: inline-flex; align-items: center; gap: 8px; }
   .logo span { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
   .logo .green { color: var(--brand-green); }
   .btn-ingresar {
     font-size: 13px; font-weight: 600; color: var(--ink-soft); text-decoration: none;
-    padding: 8px 14px; border-radius: var(--radius-btn); border: 1px solid var(--line);
+    padding: 9px 16px; border-radius: var(--radius-btn); border: 1px solid var(--line);
+    transition: border-color .15s ease, color .15s ease;
   }
-  .hero { max-width: 760px; margin: 0 auto; padding: 48px 24px 40px; text-align: center; }
+  .btn-ingresar:hover { border-color: var(--ink-faint); color: var(--ink); }
+
+  /* Hero */
+  .hero-bg {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute; top: -220px; right: -160px; width: 640px; height: 640px;
+    background: radial-gradient(circle, rgba(22,163,74,0.16), rgba(22,163,74,0) 70%);
+    pointer-events: none;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; top: 80px; left: -220px; width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(13,27,42,0.07), rgba(13,27,42,0) 70%);
+    pointer-events: none;
+  }
+  .hero {
+    max-width: 1160px; margin: 0 auto; padding: 40px 24px 20px;
+    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 40px; align-items: center;
+    position: relative;
+  }
   .eyebrow {
-    display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.03em;
-    text-transform: uppercase; color: var(--brand-green); background: var(--brand-green-soft);
-    padding: 6px 14px; border-radius: 999px; margin-bottom: 20px;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.03em;
+    color: var(--brand-green); background: var(--brand-green-soft);
+    padding: 7px 14px; border-radius: 999px; margin-bottom: 22px;
   }
-  h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 18px; text-wrap: balance; }
-  .hero p.lead { font-size: 17px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 32px; }
-  .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 999px; background: var(--brand-green); }
+  h1 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; letter-spacing: -0.025em; line-height: 1.08; margin-bottom: 20px; text-wrap: balance; }
+  h1 .accent { color: var(--brand-green); }
+  .hero p.lead { font-size: 17px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 30px; max-width: 480px; }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
   .btn-primary, .btn-ghost {
-    font-size: 15px; padding: 13px 26px; border-radius: var(--radius-btn); font-weight: 600;
-    text-decoration: none; display: inline-block; cursor: pointer; border: none;
+    font-size: 15px; padding: 14px 26px; border-radius: var(--radius-btn); font-weight: 600;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none;
     transition: box-shadow 0.15s ease, transform 0.15s ease;
   }
   .btn-primary { background: var(--ink); color: white; box-shadow: 0 1px 2px rgba(20,20,15,0.08), var(--shadow-sm); }
-  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 2px 4px rgba(20,20,15,0.1), var(--shadow-md); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(20,20,15,0.12), var(--shadow-md); }
   .btn-primary.green { background: var(--brand-green); }
   .btn-ghost { background: var(--card); color: var(--ink-soft); border: 1px solid var(--line); }
-  .btn-ghost:hover { border-color: var(--ink-faint); color: var(--ink); }
-  .card { border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--card); box-shadow: var(--shadow-sm); }
-  .problema { max-width: 900px; margin: 0 auto; padding: 20px 24px 56px; }
-  .problema .card { padding: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; }
-  .problema p { font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
-  section.features { max-width: 1080px; margin: 0 auto; padding: 20px 24px 64px; }
-  .section-title { text-align: center; margin-bottom: 40px; }
-  .section-title h2 { font-size: clamp(24px, 4vw, 30px); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 10px; }
-  .section-title p { font-size: 15px; color: var(--ink-soft); }
-  .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-  .feature-card { padding: 22px; }
-  .feature-icon {
-    width: 38px; height: 38px; border-radius: 11px; background: var(--brand-green-soft); color: var(--brand-green);
-    display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+  .btn-ghost:hover { border-color: var(--ink-faint); color: var(--ink); transform: translateY(-2px); }
+  .trust-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-faint); }
+  .trust-row .avatars { display: flex; }
+  .trust-row .avatars span {
+    width: 26px; height: 26px; border-radius: 999px; border: 2px solid var(--paper);
+    margin-left: -8px; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: white;
   }
-  .feature-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-  .feature-card p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
-  section.pasos { max-width: 1080px; margin: 0 auto; padding: 20px 24px 64px; }
-  section.pasos h2 { font-size: clamp(24px, 4vw, 30px); font-weight: 700; letter-spacing: -0.01em; text-align: center; margin-bottom: 40px; }
-  .pasos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-  .pasos-grid .num { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: 700; color: var(--brand-green); margin-bottom: 10px; }
-  .pasos-grid h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-  .pasos-grid p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
-  section.rubros { max-width: 760px; margin: 0 auto; padding: 20px 24px 64px; text-align: center; }
-  section.rubros h2 { font-size: clamp(22px, 4vw, 26px); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px; }
-  section.rubros p { font-size: 15px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 20px; }
-  .pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-  .pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 6px 13px; border-radius: 999px; background: #eef1ef; color: var(--ink-soft); }
-  section.faq { max-width: 760px; margin: 0 auto; padding: 20px 24px 64px; }
-  section.faq h2 { font-size: clamp(24px, 4vw, 30px); font-weight: 700; letter-spacing: -0.01em; text-align: center; margin-bottom: 28px; }
-  .faq-item { border-bottom: 1px solid var(--line); padding: 18px 2px; }
-  .faq-item summary { font-size: 15px; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .trust-row .avatars span:first-child { margin-left: 0; }
+
+  /* Mockup */
+  .mockup-wrap { position: relative; }
+  .mockup {
+    background: var(--card); border-radius: var(--radius-card); border: 1px solid var(--line);
+    box-shadow: var(--shadow-lg); overflow: hidden; transform: rotate(1.2deg);
+  }
+  .mockup-bar { display: flex; align-items: center; gap: 6px; padding: 11px 14px; border-bottom: 1px solid var(--line); background: #fafbfa; }
+  .mockup-bar .dot2 { width: 9px; height: 9px; border-radius: 999px; background: var(--line); }
+  .mockup-bar .url { margin-left: 8px; font-size: 11px; color: var(--ink-faint); background: white; border: 1px solid var(--line); border-radius: 6px; padding: 3px 10px; }
+  .mockup-body { padding: 18px; }
+  .m-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+  .m-tile { border: 1px solid var(--line); border-radius: 10px; padding: 10px 11px; }
+  .m-tile .label { font-size: 9px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 5px; }
+  .m-tile .value { font-size: 18px; font-weight: 700; }
+  .m-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; }
+  .m-row:last-child { border-bottom: none; }
+  .m-row .who { font-weight: 600; }
+  .m-row .sub { font-size: 11px; color: var(--ink-faint); }
+  .m-pill { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+  .m-pill.good { background: var(--brand-green-soft); color: var(--brand-green); }
+  .m-pill.warn { background: #f8f0dd; color: #a3690b; }
+  .m-amount { font-weight: 700; font-size: 13px; }
+  .mockup-float {
+    position: absolute; bottom: -22px; left: -30px; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 12px 16px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 10px;
+    transform: rotate(-2deg);
+  }
+  .mockup-float .icon { width: 30px; height: 30px; border-radius: 8px; background: var(--brand-green-soft); color: var(--brand-green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .mockup-float .t1 { font-size: 12px; font-weight: 700; }
+  .mockup-float .t2 { font-size: 10.5px; color: var(--ink-faint); }
+
+  section { padding: 76px 24px; }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+  .wrap-narrow { max-width: 720px; margin: 0 auto; }
+  .section-title { text-align: center; margin-bottom: 44px; }
+  .section-title .kicker { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand-green); margin-bottom: 10px; }
+  .section-title h2 { font-size: clamp(26px, 3.6vw, 36px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; text-wrap: balance; }
+  .section-title p { font-size: 16px; color: var(--ink-soft); max-width: 560px; margin: 0 auto; }
+
+  /* Comparativa */
+  .compare { padding-top: 20px; padding-bottom: 20px; }
+  .compare-grid { max-width: 900px; margin: 0 auto; border: 1px solid var(--line); border-radius: var(--radius-card); overflow: hidden; background: var(--card); box-shadow: var(--shadow-sm); }
+  .compare-row { display: grid; grid-template-columns: 1fr 1fr; }
+  .compare-row + .compare-row { border-top: 1px solid var(--line); }
+  .compare-cell { padding: 18px 22px; font-size: 14px; line-height: 1.5; display: flex; align-items: flex-start; gap: 10px; }
+  .compare-cell.head { font-size: 12px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; padding: 14px 22px; }
+  .compare-cell.old { color: var(--ink-faint); border-right: 1px solid var(--line); }
+  .compare-cell.old.head { background: #fafafa; color: var(--ink-faint); }
+  .compare-cell.new.head { background: var(--brand-green-soft); color: var(--brand-green); }
+  .compare-cell .mark { flex-shrink: 0; margin-top: 2px; }
+
+  /* Pilares - fondo oscuro */
+  .pilares { background: var(--ink); color: white; }
+  .pilares .section-title h2 { color: white; }
+  .pilares .section-title p { color: rgba(255,255,255,0.62); }
+  .pilares .kicker { color: var(--brand-green); }
+  .pilar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .pilar {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-card);
+    padding: 26px; transition: background .2s ease, transform .2s ease;
+  }
+  .pilar:hover { background: rgba(255,255,255,0.07); transform: translateY(-3px); }
+  .pilar-num { font-size: 12px; font-weight: 700; color: var(--brand-green); margin-bottom: 14px; }
+  .pilar h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .pilar > p { font-size: 13.5px; color: rgba(255,255,255,0.58); line-height: 1.55; margin-bottom: 18px; }
+  .pilar ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .pilar li { font-size: 13.5px; color: rgba(255,255,255,0.82); display: flex; align-items: flex-start; gap: 9px; line-height: 1.5; }
+  .pilar li svg { flex-shrink: 0; margin-top: 2px; color: var(--brand-green); }
+
+  /* Cómo funciona */
+  .pasos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .paso { position: relative; padding: 0 18px 0 0; }
+  .paso:not(:last-child)::after {
+    content: ''; position: absolute; top: 19px; left: calc(100% - 10px); width: calc(100% - 4px); height: 1px;
+    background: repeating-linear-gradient(to right, var(--line) 0 6px, transparent 6px 12px);
+  }
+  .paso-num {
+    width: 38px; height: 38px; border-radius: 10px; background: var(--brand-green-soft); color: var(--brand-green);
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; margin-bottom: 16px;
+  }
+  .paso h3 { font-size: 15.5px; font-weight: 700; margin-bottom: 6px; }
+  .paso p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
+
+  /* Sectores strip */
+  .sectores-strip { padding: 40px 24px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .sectores-strip .wrap { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .sectores-strip .label { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-faint); }
+  .pills { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .pill { display: inline-block; font-size: 13px; font-weight: 600; padding: 7px 15px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--ink-soft); }
+
+  /* FAQ */
+  section.faq { max-width: 760px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid var(--line); padding: 19px 2px; }
+  .faq-item summary { font-size: 15.5px; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
   .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-item summary::after { content: '+'; font-size: 20px; color: var(--ink-faint); font-weight: 400; flex-shrink: 0; }
+  .faq-item summary::after { content: '+'; font-size: 22px; color: var(--ink-faint); font-weight: 400; flex-shrink: 0; line-height: 1; }
   .faq-item[open] summary::after { content: '−'; }
-  .faq-item p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; margin-top: 10px; }
-  section.cta-final { max-width: 760px; margin: 0 auto; padding: 20px 24px 72px; }
-  .cta-box { background: var(--ink); border-radius: var(--radius-card); padding: 44px 32px; text-align: center; }
-  .cta-box h2 { font-size: clamp(20px, 3.5vw, 25px); font-weight: 700; color: white; margin-bottom: 10px; letter-spacing: -0.01em; }
-  .cta-box p { font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 26px; max-width: 440px; margin-left: auto; margin-right: auto; }
-  footer { max-width: 1080px; margin: 0 auto; padding: 24px; text-align: center; }
-  footer p { font-size: 12px; color: var(--ink-faint); margin-top: 10px; }
+  .faq-item p { font-size: 14px; color: var(--ink-soft); line-height: 1.65; margin-top: 12px; max-width: 620px; }
+
+  /* CTA final */
+  .cta-box {
+    max-width: 900px; margin: 0 auto; background: var(--ink); border-radius: 22px; padding: 56px 40px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-box::before {
+    content: ''; position: absolute; bottom: -140px; right: -100px; width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(22,163,74,0.25), rgba(22,163,74,0) 70%);
+  }
+  .cta-box h2 { font-size: clamp(22px, 3.2vw, 30px); font-weight: 800; color: white; margin-bottom: 12px; letter-spacing: -0.01em; position: relative; }
+  .cta-box p { font-size: 15px; color: rgba(255,255,255,0.68); margin-bottom: 28px; max-width: 460px; margin-left: auto; margin-right: auto; position: relative; }
+  .cta-box .cta-row { justify-content: center; position: relative; margin-bottom: 0; }
+
+  footer { max-width: 1160px; margin: 0 auto; padding: 40px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  footer .flogo { display: flex; align-items: center; gap: 8px; }
+  footer .flogo span { font-weight: 700; font-size: 14px; }
+  footer p { font-size: 12.5px; color: var(--ink-faint); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 24px; }
+    .hero p.lead { max-width: none; }
+    .mockup-wrap { order: -1; max-width: 460px; margin: 0 auto 30px; }
+    .pilar-grid { grid-template-columns: 1fr; }
+    .pasos-grid { grid-template-columns: 1fr 1fr; gap: 28px 18px; }
+    .paso::after { display: none; }
+    .compare-row { grid-template-columns: 1fr; }
+    .compare-cell.old { border-right: none; border-bottom: 1px solid var(--line); }
+  }
+  @media (max-width: 520px) {
+    .pasos-grid { grid-template-columns: 1fr; }
+    section { padding: 56px 20px; }
+  }
 </style>
 </head>
 <body>
@@ -125,163 +260,239 @@
     <a class="btn-ingresar" href="https://mi-cliente.vercel.app/login">Ingresar</a>
   </header>
 
-  <section class="hero">
-    <p class="eyebrow">Para distribuidoras que hoy venden por WhatsApp y Excel</p>
-    <h1>Que tus clientes pidan solos.<br>Que tú sepas siempre quién te debe.</h1>
-    <p class="lead">
-      Mi Cliente es el sistema de pedidos, cobranza y reparto para distribuidoras chicas y medianas —
-      hielo, aguas, bebidas, abarrotes. Reemplaza el WhatsApp, las llamadas y la planilla de Excel por
-      un solo panel donde ves todo tu negocio.
-    </p>
-    <div class="cta-row">
-      <a class="btn-primary" href="mailto:igperezdiaz@gmail.com?subject=Quiero%20conocer%20Mi%20Cliente">Hablemos de tu negocio</a>
-      <a class="btn-ghost" href="#como-funciona">Ver cómo funciona</a>
-    </div>
-  </section>
+  <div class="hero-bg">
+    <section class="hero" style="padding-bottom: 60px;">
+      <div>
+        <p class="eyebrow"><span class="dot"></span> Pedidos · Cobranza · Reparto</p>
+        <h1>Cada pedido, cada pago y cada entrega, <span class="accent">bajo control total.</span></h1>
+        <p class="lead">
+          Mi Cliente centraliza la forma en que tomas pedidos, cobras y despachas — en un solo panel,
+          desde cualquier celular o computador. Sin llamadas perdidas, sin fiar de memoria, sin plantillas
+          de Excel que nadie actualiza.
+        </p>
+        <div class="cta-row">
+          <a class="btn-primary" href="mailto:igperezdiaz@gmail.com?subject=Quiero%20conocer%20Mi%20Cliente">
+            Solicitar una demo
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn-ghost" href="#capacidades">Ver todas las funciones</a>
+        </div>
+        <div class="trust-row">
+          <span class="avatars">
+            <span style="background:#0d1b2a;">HS</span>
+            <span style="background:#16a34a;">AV</span>
+            <span style="background:#0891b2;">BE</span>
+            <span style="background:#d97706;">CA</span>
+          </span>
+          Ya en uso por distribuidoras de hielo, aguas y bebidas
+        </div>
+      </div>
 
-  <section class="problema">
-    <div class="card">
-      <p>"¿Cuánto te debía el minimarket de la esquina?" — y tienes que revisar 40 conversaciones de WhatsApp para saberlo.</p>
-      <p>Un cliente pide a las 10pm, otro llama mientras estás repartiendo, otro manda audio — y algún pedido siempre se pierde.</p>
-      <p>A fin de mes no sabes con certeza qué se vendió más, ni cuánto es lo que realmente te queda por cobrar.</p>
-    </div>
-  </section>
+      <div class="mockup-wrap">
+        <div class="mockup">
+          <div class="mockup-bar">
+            <span class="dot2"></span><span class="dot2"></span><span class="dot2"></span>
+            <span class="url">mi-cliente.vercel.app/admin</span>
+          </div>
+          <div class="mockup-body">
+            <div class="m-metrics">
+              <div class="m-tile"><div class="label">Pedidos hoy</div><div class="value num">7</div></div>
+              <div class="m-tile"><div class="label">En reparto</div><div class="value num">3</div></div>
+              <div class="m-tile"><div class="label">Por cobrar</div><div class="value num" style="color:#a3690b;">$168k</div></div>
+            </div>
+            <div class="m-row">
+              <div><div class="who">Botillería Central</div><div class="sub">Pedido #411185 · $54.400</div></div>
+              <span class="m-pill warn">Por cobrar</span>
+            </div>
+            <div class="m-row">
+              <div><div class="who">Restaurant El Fogón</div><div class="sub">Pedido #648525 · $15.000</div></div>
+              <span class="m-pill good">Entregado</span>
+            </div>
+            <div class="m-row">
+              <div><div class="who">Minimarket Don Pepe</div><div class="sub">Pedido #227128 · $41.000</div></div>
+              <span class="m-amount">Pagado</span>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-float">
+          <div class="icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <div>
+            <div class="t1">Entrega confirmada</div>
+            <div class="t2">Foto + firma registrada</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 
-  <section class="pasos" id="como-funciona">
-    <h2>Cómo funciona</h2>
-    <div class="pasos-grid">
-      <div><p class="num">01</p><h3>Subes tu catálogo</h3><p>Productos, precios, fotos y categorías. Toma minutos, no días.</p></div>
-      <div><p class="num">02</p><h3>Invitas a tus clientes</h3><p>Les mandas un link por WhatsApp. Ellos crean su cuenta solos.</p></div>
-      <div><p class="num">03</p><h3>Ellos piden, tú confirmas</h3><p>Ves cada pedido apenas llega y decides la fecha de entrega.</p></div>
-      <div><p class="num">04</p><h3>Repartes y cobras con respaldo</h3><p>Foto de entrega, control de pagos, todo queda registrado.</p></div>
-    </div>
-  </section>
-
-  <section class="features">
+  <section class="compare">
     <div class="section-title">
-      <h2>Todo lo que hoy haces a mano, en un solo lugar</h2>
-      <p>No es un cambio de sistema — es dejar de perseguir información.</p>
+      <p class="kicker">El cambio</p>
+      <h2>Lo que hoy te quita tiempo, resuelto</h2>
     </div>
-    <div class="feature-grid">
+    <div class="compare-grid">
+      <div class="compare-row">
+        <div class="compare-cell old head">Hoy</div>
+        <div class="compare-cell new head">Con Mi Cliente</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell old"><span class="mark">✕</span> Pedidos por WhatsApp, llamadas y audios de voz</div>
+        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Catálogo online — tus clientes piden solos, sin llamarte</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell old"><span class="mark">✕</span> No sabes quién te debe hasta revisar todo a mano</div>
+        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Ves quién pagó y quién debe, en tiempo real</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell old"><span class="mark">✕</span> "¿Le entregaron el pedido a Juan?" — sin forma de comprobarlo</div>
+        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Foto de entrega y nombre de quien recibió, siempre</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell old"><span class="mark">✕</span> Fías de memoria, sin control real de plazos</div>
+        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Días de crédito por cliente, con aviso automático al vencer</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell old"><span class="mark">✕</span> Reportes armados a mano, cuando alcanza el tiempo</div>
+        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Reportes de venta y cobranza automáticos, listos en Excel</div>
+      </div>
+    </div>
+  </section>
 
-      <div class="card feature-card">
-        <div class="feature-icon">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8 12 4l8.5 4-8.5 4-8.5-4Z"/><path d="M3.5 8v9L12 21l8.5-4V8"/><path d="M12 12v9"/></svg>
-        </div>
-        <h3>Catálogo propio, pedidos solos</h3>
-        <p>Tus clientes ven tus productos, precios y promociones desde el celular, arman su pedido y lo confirman. Sin llamarte, sin escribirte por WhatsApp a las 11 de la noche.</p>
+  <section class="pilares" id="capacidades">
+    <div class="section-title">
+      <p class="kicker">Capacidades</p>
+      <h2>Todo lo que necesitas para operar, en un solo panel</h2>
+      <p>Tres frentes que hoy manejas por separado — pedidos, cobranza y reparto — unidos en un mismo sistema.</p>
+    </div>
+    <div class="pilar-grid">
+
+      <div class="pilar">
+        <p class="pilar-num">01 — PEDIDOS</p>
+        <h3>Sin fricción, de principio a fin</h3>
+        <p>Un catálogo online con tu propio logo y color, siempre actualizado.</p>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Catálogo con tu marca, no la nuestra</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Buscador y "repetir pedido" en un clic</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Flujo de estados completo, sin ambigüedad</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Pedidos manuales para clientes que llaman</li>
+        </ul>
       </div>
 
-      <div class="card feature-card">
-        <div class="feature-icon">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="16" height="10" rx="2"/><circle cx="11" cy="12" r="2.3"/><path d="M7 9.3v5.4M15 9.3v5.4" opacity="0.6"/></svg>
-        </div>
-        <h3>Sabes quién te debe y cuánto</h3>
-        <p>Cada pedido queda marcado como pagado o pendiente. Si le fías a un cliente, le pones días de crédito y la app te avisa sola cuando se le pasa el plazo.</p>
+      <div class="pilar">
+        <p class="pilar-num">02 — COBRANZA</p>
+        <h3>Sabes quién debe, siempre</h3>
+        <p>Cada pedido queda marcado como pagado o pendiente, sin excepción.</p>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Marca pagos por efectivo, transferencia u otro</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Tus clientes suben su comprobante, tú lo confirmas</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Días de crédito por cliente, con vencimiento automático</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Reporte de cobrado vs. pendiente, por cliente</li>
+        </ul>
       </div>
 
-      <div class="card feature-card">
-        <div class="feature-icon">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h10v9H3z"/><path d="M13 10h4l4 3v3h-8z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>
-        </div>
-        <h3>Reparto con respaldo</h3>
-        <p>Tu repartidor marca la entrega con una foto y el nombre de quien recibió. Si un cliente reclama que "nunca le llegó", tienes la prueba a un clic.</p>
-      </div>
-
-      <div class="card feature-card">
-        <div class="feature-icon">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M11 20V4M18 20v-7"/><path d="M3 20h18"/></svg>
-        </div>
-        <h3>Reportes sin pedirle nada a nadie</h3>
-        <p>Ventas por día, tus productos más vendidos, tus mejores clientes, cuánto llevas cobrado y cuánto falta — todo en el panel, y descargable en Excel.</p>
-      </div>
-
-      <div class="card feature-card">
-        <div class="feature-icon">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 4.5 1.5 6 2 6.5H4c.5-.5 2-2 2-6.5Z"/><path d="M9.5 18.5a2.5 2.5 0 0 0 5 0"/></svg>
-        </div>
-        <h3>Avisos automáticos</h3>
-        <p>Cuando un cliente pide, cuando confirmas, cuando el pedido sale a reparto — el sistema le manda el aviso por correo solo.</p>
-      </div>
-
-      <div class="card feature-card">
-        <div class="feature-icon">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 19 6.5v5c0 5-3 8-7 9-4-1-7-4-7-9v-5Z"/><path d="M9 12l2 2 4-4"/></svg>
-        </div>
-        <h3>Tu marca, no la nuestra</h3>
-        <p>Tus clientes ven tu logo y tus colores cuando entran a pedir — no los nuestros. Mi Cliente es la herramienta; tu negocio sigue siendo el tuyo.</p>
+      <div class="pilar">
+        <p class="pilar-num">03 — REPARTO</p>
+        <h3>Con respaldo, no con confianza</h3>
+        <p>Cada entrega queda documentada — sin discusiones después.</p>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Foto de entrega y firma de quien recibió</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Asigna pedidos a un repartidor específico</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Notificaciones automáticas en cada cambio de estado</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Historial completo de cada pedido, sin dudas</li>
+        </ul>
       </div>
 
     </div>
   </section>
 
-  <section class="rubros">
-    <h2>Para distribuidoras como la tuya</h2>
-    <p>
-      Hielo, aguas, bebidas, abarrotes, insumos para negocios — si vendes al por mayor a otros locales
-      (restaurantes, minimarkets, botillerías, almacenes) y hoy lo haces por WhatsApp, llamadas o
-      Excel, Mi Cliente está pensado para ti.
-    </p>
-    <div class="pills">
-      <span class="pill">Hielo</span>
-      <span class="pill">Aguas</span>
-      <span class="pill">Bebidas</span>
-      <span class="pill">Abarrotes</span>
-      <span class="pill">Insumos</span>
+  <section class="pasos-section" id="como-funciona">
+    <div class="section-title">
+      <p class="kicker">Implementación</p>
+      <h2>De cero a operando, en un día</h2>
+    </div>
+    <div class="wrap">
+      <div class="pasos-grid">
+        <div class="paso"><div class="paso-num num">01</div><h3>Subes tu catálogo</h3><p>Productos, precios, fotos y categorías. Toma minutos, no días.</p></div>
+        <div class="paso"><div class="paso-num num">02</div><h3>Invitas a tus clientes</h3><p>Un link, y ellos crean su cuenta solos.</p></div>
+        <div class="paso"><div class="paso-num num">03</div><h3>Ellos piden, tú confirmas</h3><p>Ves cada pedido apenas llega y defines la entrega.</p></div>
+        <div class="paso"><div class="paso-num num">04</div><h3>Repartes y cobras con respaldo</h3><p>Foto de entrega, control de pagos, todo registrado.</p></div>
+      </div>
     </div>
   </section>
+
+  <div class="sectores-strip">
+    <div class="wrap">
+      <span class="label">Ya se usa en</span>
+      <div class="pills">
+        <span class="pill">Hielo</span>
+        <span class="pill">Aguas</span>
+        <span class="pill">Bebidas</span>
+        <span class="pill">Abarrotes</span>
+        <span class="pill">Insumos</span>
+      </div>
+    </div>
+  </div>
 
   <section class="faq">
-    <h2>Preguntas frecuentes</h2>
+    <div class="section-title">
+      <p class="kicker">Dudas frecuentes</p>
+      <h2>Preguntas frecuentes</h2>
+    </div>
 
     <details class="faq-item">
       <summary>¿Necesito instalar algo?</summary>
-      <p>No. Mi Cliente funciona desde el navegador, tanto en el celular como en el computador — ni tú ni tus clientes necesitan descargar una aplicación.</p>
+      <p>No. Mi Cliente funciona desde el navegador, en el celular o en el computador — no requiere descargar ninguna aplicación.</p>
     </details>
 
     <details class="faq-item">
       <summary>¿Mis clientes tienen que pagar por usarlo?</summary>
-      <p>No. Solo la distribuidora paga la suscripción. Para tus clientes, pedir a través de Mi Cliente es gratis.</p>
+      <p>No. La suscripción la paga el negocio. Para quienes hacen pedidos, usar Mi Cliente es gratuito.</p>
     </details>
 
     <details class="faq-item">
-      <summary>¿Qué pasa con mi marca? ¿Se ve el logo de Mi Cliente en vez del mío?</summary>
-      <p>Tus clientes ven tu logo y tu color cuando entran a pedir, no los nuestros. Mi Cliente es la herramienta que usas por dentro; tu negocio sigue siendo el que ven tus clientes.</p>
+      <summary>¿Aparece el logo de Mi Cliente en vez del mío?</summary>
+      <p>No. Quienes te compran ven tu logo y tu color. Mi Cliente es la herramienta que usas por dentro — tu marca es la que se muestra hacia afuera.</p>
     </details>
 
     <details class="faq-item">
-      <summary>Tengo pocos clientes todavía, ¿igual me sirve?</summary>
-      <p>Sí. No hay un mínimo de clientes ni de pedidos para empezar — funciona igual de bien con 5 clientes que con 500.</p>
+      <summary>Recién estoy empezando, ¿igual me sirve?</summary>
+      <p>Sí. No hay un mínimo de clientes ni de pedidos — funciona igual de bien con 5 clientes que con 500.</p>
     </details>
 
     <details class="faq-item">
-      <summary>¿Tengo que dejar de usar WhatsApp de un día para otro?</summary>
-      <p>No. Puedes ir migrando a tu ritmo — muchos dueños parten invitando a sus clientes más frecuentes primero y van sumando al resto con el tiempo.</p>
+      <summary>¿Tengo que dejar todo lo demás de un día para otro?</summary>
+      <p>No. La migración es progresiva — muchos negocios parten invitando a sus clientes más frecuentes primero y suman al resto con el tiempo.</p>
     </details>
 
     <details class="faq-item">
       <summary>¿Cómo empiezo?</summary>
-      <p>Escríbenos con el botón de abajo. Conversamos sobre cómo trabaja hoy tu distribuidora y vemos juntos si Mi Cliente te sirve y cómo partir.</p>
+      <p>Escríbenos con el botón de abajo. Conversamos cómo opera hoy tu negocio y definimos juntos el mejor punto de partida.</p>
     </details>
   </section>
 
-  <section class="cta-final">
+  <section>
     <div class="cta-box">
-      <h2>Cuéntanos cómo trabajas hoy</h2>
-      <p>Sin compromiso. Vemos juntos si Mi Cliente te sirve para tu distribuidora y cómo partir.</p>
-      <a class="btn-primary green" href="mailto:igperezdiaz@gmail.com?subject=Quiero%20conocer%20Mi%20Cliente">Escríbenos</a>
+      <h2>Cuéntanos cómo operas hoy</h2>
+      <p>Sin compromiso. Revisamos juntos si Mi Cliente encaja en tu operación y cómo empezar.</p>
+      <div class="cta-row">
+        <a class="btn-primary green" href="mailto:igperezdiaz@gmail.com?subject=Quiero%20conocer%20Mi%20Cliente">Solicitar una demo</a>
+      </div>
     </div>
   </section>
 
   <footer>
-    <svg width="20" height="20" viewBox="0 0 100 100" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:6px;">
-      <path d="M50,35 A25,25 0 0,0 50,85 C34,79 34,67 50,60 C66,53 66,41 50,35 Z" fill="#0D1B2A"/>
-      <path d="M50,35 A25,25 0 0,1 50,85 C34,79 34,67 50,60 C66,53 66,41 50,35 Z" fill="#16A34A"/>
-      <circle cx="38" cy="24" r="10" fill="#0D1B2A"/>
-      <circle cx="62" cy="24" r="10" fill="#16A34A"/>
-    </svg>
-    <span style="font-weight:700; font-size: 15px;">Mi Cliente</span>
-    <p>Digitalizamos la forma en que tu negocio vende.</p>
+    <span class="flogo">
+      <svg width="20" height="20" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M50,35 A25,25 0 0,0 50,85 C34,79 34,67 50,60 C66,53 66,41 50,35 Z" fill="#0D1B2A"/>
+        <path d="M50,35 A25,25 0 0,1 50,85 C34,79 34,67 50,60 C66,53 66,41 50,35 Z" fill="#16A34A"/>
+        <circle cx="38" cy="24" r="10" fill="#0D1B2A"/>
+        <circle cx="62" cy="24" r="10" fill="#16A34A"/>
+      </svg>
+      <span>Mi Cliente</span>
+    </span>
+    <p>El sistema de pedidos, cobranza y reparto para tu negocio.</p>
   </footer>
 
 </main>
