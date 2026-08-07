@@ -207,6 +207,8 @@
 
   /* FAQ */
   section.faq { max-width: 760px; margin: 0 auto; }
+  .faq-group + .faq-group { margin-top: 34px; }
+  .faq-group-title { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--brand-green); margin-bottom: 6px; }
   .faq-item { border-bottom: 1px solid var(--line); padding: 19px 2px; }
   .faq-item summary { font-size: 15.5px; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
   .faq-item summary::-webkit-details-marker { display: none; }
@@ -231,6 +233,9 @@
   footer .flogo { display: flex; align-items: center; gap: 8px; }
   footer .flogo span { font-weight: 700; font-size: 14px; }
   footer p { font-size: 12.5px; color: var(--ink-faint); }
+  footer .flinks { display: flex; align-items: center; gap: 18px; }
+  footer .flinks a { font-size: 12.5px; color: var(--ink-faint); text-decoration: none; }
+  footer .flinks a:hover { color: var(--ink-soft); text-decoration: underline; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -449,35 +454,62 @@
       <h2>Preguntas frecuentes</h2>
     </div>
 
-    <details class="faq-item">
-      <summary>¿Necesito instalar algo?</summary>
-      <p>No. Mi Cliente funciona desde el navegador, en el celular o en el computador — no requiere descargar ninguna aplicación.</p>
-    </details>
+    <div class="faq-group">
+      <p class="faq-group-title">Sobre el producto</p>
 
-    <details class="faq-item">
-      <summary>¿Mis clientes tienen que pagar por usarlo?</summary>
-      <p>No. La suscripción la paga el negocio. Para quienes hacen pedidos, usar Mi Cliente es gratuito.</p>
-    </details>
+      <details class="faq-item">
+        <summary>¿Necesito instalar algo?</summary>
+        <p>No. Mi Cliente funciona desde el navegador, en el celular o en el computador — no requiere descargar ninguna aplicación.</p>
+      </details>
 
-    <details class="faq-item">
-      <summary>¿Aparece el logo de Mi Cliente en vez del mío?</summary>
-      <p>No. Quienes te compran ven tu logo y tu color. Mi Cliente es la herramienta que usas por dentro — tu marca es la que se muestra hacia afuera.</p>
-    </details>
+      <details class="faq-item">
+        <summary>¿Aparece el logo de Mi Cliente en vez del mío?</summary>
+        <p>No. Quienes te compran ven tu logo y tu color. Mi Cliente es la herramienta que usas por dentro — tu marca es la que se muestra hacia afuera.</p>
+      </details>
 
-    <details class="faq-item">
-      <summary>Recién estoy empezando, ¿igual me sirve?</summary>
-      <p>Sí. No hay un mínimo de clientes ni de pedidos — funciona igual de bien con 5 clientes que con 500.</p>
-    </details>
+      <details class="faq-item">
+        <summary>¿Mis datos y los de mis clientes están seguros?</summary>
+        <p>Sí. Cada negocio ve solo su propia información — nunca se mezcla con la de otro. Puedes revisar el detalle completo en nuestra <a href="https://mi-cliente.vercel.app/privacidad" style="color: var(--brand-green); font-weight: 600;">política de privacidad</a>.</p>
+      </details>
+    </div>
 
-    <details class="faq-item">
-      <summary>¿Tengo que dejar todo lo demás de un día para otro?</summary>
-      <p>No. La migración es progresiva — muchos negocios parten invitando a sus clientes más frecuentes primero y suman al resto con el tiempo.</p>
-    </details>
+    <div class="faq-group">
+      <p class="faq-group-title">Para tu negocio</p>
 
-    <details class="faq-item">
-      <summary>¿Cómo empiezo?</summary>
-      <p>Escríbenos con el botón de abajo. Conversamos cómo opera hoy tu negocio y definimos juntos el mejor punto de partida.</p>
-    </details>
+      <details class="faq-item">
+        <summary>¿Mis clientes tienen que pagar por usarlo?</summary>
+        <p>No. La suscripción la paga el negocio. Para quienes hacen pedidos, usar Mi Cliente es gratuito.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Recién estoy empezando, ¿igual me sirve?</summary>
+        <p>Sí. No hay un mínimo de clientes ni de pedidos — funciona igual de bien con 5 clientes que con 500.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Tengo que dejar todo lo demás de un día para otro?</summary>
+        <p>No. La migración es progresiva — muchos negocios parten invitando a sus clientes más frecuentes primero y suman al resto con el tiempo.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Puedo cancelar cuando quiera?</summary>
+        <p>Sí. No hay contrato de permanencia — si en algún momento Mi Cliente deja de servirte, cancelas cuando quieras, sin letra chica.</p>
+      </details>
+    </div>
+
+    <div class="faq-group">
+      <p class="faq-group-title">Para partir</p>
+
+      <details class="faq-item">
+        <summary>¿Cómo empiezo?</summary>
+        <p>Escríbenos con el botón de abajo. Conversamos cómo opera hoy tu negocio y definimos juntos el mejor punto de partida.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Qué pasa si tengo un problema o una duda?</summary>
+        <p>Nos escribes directo y te contestamos nosotros — no hay bots ni tickets perdidos en un sistema de soporte automatizado.</p>
+      </details>
+    </div>
   </section>
 
   <section>
@@ -501,6 +533,10 @@
       <span>Mi Cliente</span>
     </span>
     <p>El sistema de pedidos, cobranza y reparto para tu negocio.</p>
+    <nav class="flinks">
+      <a href="https://mi-cliente.vercel.app/privacidad">Privacidad</a>
+      <a href="https://mi-cliente.vercel.app/terminos">Términos</a>
+    </nav>
   </footer>
 
 </main>
