@@ -184,6 +184,20 @@
   .pilar li { font-size: 13.5px; color: rgba(255,255,255,0.82); display: flex; align-items: flex-start; gap: 9px; line-height: 1.5; }
   .pilar li svg { flex-shrink: 0; margin-top: 2px; color: var(--brand-green); }
 
+  /* Áreas funcionales (claro) */
+  .area-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .area {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-card);
+    padding: 26px; box-shadow: var(--shadow-sm); transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .area:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .area-num { font-size: 12px; font-weight: 700; color: var(--brand-green); margin-bottom: 14px; }
+  .area h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .area > p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 18px; }
+  .area ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .area li { font-size: 13.5px; color: var(--ink-soft); display: flex; align-items: flex-start; gap: 9px; line-height: 1.5; }
+  .area li svg { flex-shrink: 0; margin-top: 2px; color: var(--brand-green); }
+
   /* Cómo funciona */
   .pasos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
   .paso { position: relative; padding: 0 18px 0 0; }
@@ -245,7 +259,7 @@
     .hero { grid-template-columns: 1fr; padding-top: 24px; }
     .hero p.lead { max-width: none; }
     .mockup-wrap { order: -1; max-width: 460px; margin: 0 auto 30px; }
-    .pilar-grid { grid-template-columns: 1fr; }
+    .pilar-grid, .area-grid { grid-template-columns: 1fr; }
     .pasos-grid { grid-template-columns: 1fr 1fr; gap: 28px 18px; }
     .paso::after { display: none; }
     .compare-row { grid-template-columns: 1fr; }
@@ -351,38 +365,99 @@
         <div class="compare-cell new head">Con Mi Cliente</div>
       </div>
       <div class="compare-row">
-        <div class="compare-cell old"><span class="mark">✕</span> Pedidos por WhatsApp, llamadas y audios de voz</div>
+        <div class="compare-cell old"><span class="mark">✕</span> Pedidos tomados por WhatsApp, llamadas y audios — sin registro, propensos a errores</div>
         <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Catálogo online — tus clientes piden solos, sin llamarte</div>
       </div>
       <div class="compare-row">
-        <div class="compare-cell old"><span class="mark">✕</span> No sabes quién te debe hasta revisar todo a mano</div>
-        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Ves quién pagó y quién debe, en tiempo real</div>
+        <div class="compare-cell old"><span class="mark">✕</span> Sin visibilidad de quién debe, hasta revisar todo a mano</div>
+        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Visibilidad total de pagos y deudas, en tiempo real</div>
       </div>
       <div class="compare-row">
-        <div class="compare-cell old"><span class="mark">✕</span> "¿Le entregaron el pedido a Juan?" — sin forma de comprobarlo</div>
-        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Foto de entrega y nombre de quien recibió, siempre</div>
+        <div class="compare-cell old"><span class="mark">✕</span> Sin comprobante real de entrega — tu palabra contra la del cliente</div>
+        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Comprobante de entrega con foto y nombre del receptor</div>
       </div>
       <div class="compare-row">
-        <div class="compare-cell old"><span class="mark">✕</span> Fías de memoria, sin control real de plazos</div>
-        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Días de crédito por cliente, con aviso automático al vencer</div>
+        <div class="compare-cell old"><span class="mark">✕</span> Crédito otorgado de memoria, sin control real de plazos</div>
+        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Crédito configurable por cliente, con aviso automático al vencer</div>
       </div>
       <div class="compare-row">
         <div class="compare-cell old"><span class="mark">✕</span> Reportes armados a mano, cuando alcanza el tiempo</div>
-        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Reportes de venta y cobranza automáticos, listos en Excel</div>
+        <div class="compare-cell new"><span class="mark" style="color:var(--brand-green)">✓</span> Reportes de venta y cobranza automáticos, disponibles en cualquier momento</div>
       </div>
     </div>
   </section>
 
-  <section class="pilares" id="capacidades">
+  <section class="pilares">
+    <div class="section-title">
+      <p class="kicker">Los pilares</p>
+      <h2>Los 5 pilares de Mi Cliente</h2>
+      <p>Todo lo que hace la plataforma existe para sostener estas cinco cosas.</p>
+    </div>
+    <div class="pilar-grid">
+
+      <div class="pilar">
+        <p class="pilar-num">PILAR 01</p>
+        <h3>Control total</h3>
+        <p>Toma el control real de tu negocio y gestiónalo de la forma más eficiente y efectiva posible — pedidos, cobros y entregas en un solo lugar.</p>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Pedidos, cobros y entregas en un solo panel</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Sin depender de WhatsApp, papel ni memoria</li>
+        </ul>
+      </div>
+
+      <div class="pilar">
+        <p class="pilar-num">PILAR 02</p>
+        <h3>Datos, no intuición</h3>
+        <p>Analiza tu negocio con datos reales al instante, no con lo que crees o sientes.</p>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Reportes de venta y cobranza siempre al día</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Ves qué producto rinde y qué cliente se aleja</li>
+        </ul>
+      </div>
+
+      <div class="pilar">
+        <p class="pilar-num">PILAR 03</p>
+        <h3>Cada pedido, verificable</h3>
+        <p>Verifica al instante dónde está y cómo llegó cada pedido, con respaldo real.</p>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Foto y nombre de quien recibió, siempre</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Nunca más tu palabra contra la de otro</li>
+        </ul>
+      </div>
+
+      <div class="pilar">
+        <p class="pilar-num">PILAR 04</p>
+        <h3>Tu tiempo, de vuelta</h3>
+        <p>Deja de perseguir cobros pendientes o pedidos perdidos. La plataforma lo hace por ti.</p>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Catálogo online — tus clientes piden solos</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Menos tiempo persiguiendo pedidos y cobros</li>
+        </ul>
+      </div>
+
+      <div class="pilar">
+        <p class="pilar-num">PILAR 05</p>
+        <h3>Cobranza sin fugas</h3>
+        <p>Sabe exactamente quién debe, cuánto y desde cuándo — nada se te escapa.</p>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Días de crédito por cliente, con aviso automático</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Sabes quién debe y desde cuándo, siempre</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="capacidades">
     <div class="section-title">
       <p class="kicker">Capacidades</p>
       <h2>Todo lo que necesitas para operar, en un solo panel</h2>
       <p>Tres frentes que hoy manejas por separado — pedidos, cobranza y reparto — unidos en un mismo sistema.</p>
     </div>
-    <div class="pilar-grid">
+    <div class="area-grid">
 
-      <div class="pilar">
-        <p class="pilar-num">01 — PEDIDOS</p>
+      <div class="area">
+        <p class="area-num">01 — PEDIDOS</p>
         <h3>Sin fricción, de principio a fin</h3>
         <p>Un catálogo online con tu propio logo y color, siempre actualizado.</p>
         <ul>
@@ -393,8 +468,8 @@
         </ul>
       </div>
 
-      <div class="pilar">
-        <p class="pilar-num">02 — COBRANZA</p>
+      <div class="area">
+        <p class="area-num">02 — COBRANZA</p>
         <h3>Sabes quién debe, siempre</h3>
         <p>Cada pedido queda marcado como pagado o pendiente, sin excepción.</p>
         <ul>
@@ -405,8 +480,8 @@
         </ul>
       </div>
 
-      <div class="pilar">
-        <p class="pilar-num">03 — REPARTO</p>
+      <div class="area">
+        <p class="area-num">03 — REPARTO</p>
         <h3>Con respaldo, no con confianza</h3>
         <p>Cada entrega queda documentada — sin discusiones después.</p>
         <ul>
